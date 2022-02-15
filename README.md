@@ -1,2 +1,1 @@
-# VisProject1
-Initial commit
+# Bad Air Project for Steven Hagedorn
