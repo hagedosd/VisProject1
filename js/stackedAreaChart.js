@@ -89,22 +89,22 @@ class StackedAreaChart {
     //       .attr('dy', '0.35em')
     //       .text('Trillion m³');
   
-        // We need to make sure that the tracking area is on top of other chart elements
-        vis.marks = vis.areachart.append('g');
-        vis.trackingArea = vis.areachart.append('rect')
-            .attr('width', vis.width)
-            .attr('height', vis.height)
-            .attr('fill', 'none')
-            .attr('pointer-events', 'all');
+        // // We need to make sure that the tracking area is on top of other chart elements
+        // vis.marks = vis.areachart.append('g');
+        // vis.trackingArea = vis.areachart.append('rect')
+        //     .attr('width', vis.width)
+        //     .attr('height', vis.height)
+        //     .attr('fill', 'none')
+        //     .attr('pointer-events', 'all');
     
-            //(event,d) => {
+        //     //(event,d) => {
     
-        // Empty tooltip group (hidden by default)
-        vis.tooltip = vis.areachart.append('g')
-            .attr('class', 'tooltip')
-            .style('display', 'none');
+        // // Empty tooltip group (hidden by default)
+        // vis.tooltip = vis.areachart.append('g')
+        //     .attr('class', 'tooltip')
+        //     .style('display', 'none');
     
-        vis.tooltip.append('text');
+        // vis.tooltip.append('text');
     }
   
     /**
@@ -134,7 +134,7 @@ class StackedAreaChart {
         // vis.xScale.domain(d3.extent(vis.data, d => d.year));
         // vis.colorScale.domain([0,1,2]);
     
-        vis.bisectDate = d3.bisector(vis.xValue).left;
+        // vis.bisectDate = d3.bisector(vis.xValue).left;
         vis.yAxis.tickFormat(d => `${d}%`);
 
         vis.renderVis();
@@ -156,39 +156,39 @@ class StackedAreaChart {
     
         // Add line path
         vis.areachart.selectAll('.area-path')
-                .data(vis.stack)
-                .join('path').transition()
+            .data(vis.stack)
+            .join('path').transition()
                 .attr('class', 'area-path')
                 .attr('d', vis.area)
                 .attr('fill', d => vis.colorScale(d.key));
     
         //   vis.axisTitle.style('display', vis.config.displayType == 'absolute' ? 'block' : 'none');
-        vis.trackingArea
-            .on('mouseenter', () => {
-                vis.tooltip.style('display', 'block');
-            })
-            .on('mouseleave', () => {
-                vis.tooltip.style('display', 'none');
-            })
-            .on('mousemove', function(event) {
-                // Get date that corresponds to current mouse x-coordinate
-                const xPos = d3.pointer(event, this)[0]; // First array element is x, second is y
-                const date = vis.xScale.invert(xPos);
+        // vis.trackingArea
+        //     .on('mouseenter', () => {
+        //         vis.tooltip.style('display', 'block');
+        //     })
+        //     .on('mouseleave', () => {
+        //         vis.tooltip.style('display', 'none');
+        //     })
+        //     .on('mousemove', function(event) {
+        //         // Get date that corresponds to current mouse x-coordinate
+        //         const xPos = d3.pointer(event, this)[0]; // First array element is x, second is y
+        //         const date = vis.xScale.invert(xPos);
     
-                // Find nearest data point
-                const index = vis.bisectDate(vis.data, date, 1);
-                const a = vis.data[index - 1];
-                const b = vis.data[index];
-                const d = b && (date - a.date > b.date - date) ? b : a; 
+        //         // Find nearest data point
+        //         const index = vis.bisectDate(vis.data, date, 1);
+        //         const a = vis.data[index - 1];
+        //         const b = vis.data[index];
+        //         const d = b && (date - a.date > b.date - date) ? b : a; 
     
-                // Update tooltip
-                vis.tooltip.select('circle')
-                    .attr('transform', `translate(${vis.xScale(d.date)},${vis.yScale(d.close)})`);
+        //         // Update tooltip
+        //         vis.tooltip.select('circle')
+        //             .attr('transform', `translate(${vis.xScale(d.date)},${vis.yScale(d.close)})`);
                 
-                vis.tooltip.select('text')
-                    .attr('transform', `translate(${vis.xScale(d.date)},${(vis.yScale(d.close) - 15)})`)
-                    .text(Math.round(d.close));
-            });
+        //         vis.tooltip.select('text')
+        //             .attr('transform', `translate(${vis.xScale(d.date)},${(vis.yScale(d.close) - 15)})`)
+        //             .text(Math.round(d.close));
+        //     });
         // Update the axes
         vis.xAxisG.call(vis.xAxis);
         vis.yAxisG.call(vis.yAxis);

@@ -21,7 +21,8 @@ class lineChart {
   
         let vis = this; 
     
-  
+        var keys = data.columns.slice(10, 12);
+
         // Width and height as the inner dimensions of the chart area- as before
         vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
         vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
@@ -29,7 +30,7 @@ class lineChart {
 
         // Initialize linear scales (input domain and output range)
         vis.xScale = d3.scaleLinear()
-            // .domain([1980, 2021])
+            .domain(d3.extent(data, function(d) { return d.Year; }))
             .range([0, vis.width]);
 
 
@@ -37,6 +38,10 @@ class lineChart {
             .domain([0, d3.max(vis.data, d => d.MaxAQI)]) 
             .range([vis.height, 0])
             .nice();
+
+        vis.colorScale = d3.scaleOrdinal()
+            .domain(keys)
+            .range(['#6080b5', '#5a9866', '#f7dc7a']);
 
 
         // Initialize axes
@@ -73,20 +78,20 @@ class lineChart {
         vis.yAxisG = vis.linechart.append("g")
             .attr("class", "axis y-axis");
 
-        // We need to make sure that the tracking area is on top of other chart elements
-        vis.marks = vis.linechart.append('g');
-        vis.trackingArea = vis.linechart.append('rect')
-            .attr('width', vis.width)
-            .attr('height', vis.height)
-            .attr('fill', 'none')
-            .attr('pointer-events', 'all');
+        // // We need to make sure that the tracking area is on top of other chart elements
+        // vis.marks = vis.linechart.append('g');
+        // vis.trackingArea = vis.linechart.append('rect')
+        //     .attr('width', vis.width)
+        //     .attr('height', vis.height)
+        //     .attr('fill', 'none')
+        //     .attr('pointer-events', 'all');
     
-        // Empty tooltip group (hidden by default)
-        vis.tooltip = vis.linechart.append('g')
-            .attr('class', 'tooltip')
-            .style('display', 'none');
+        // // Empty tooltip group (hidden by default)
+        // vis.tooltip = vis.linechart.append('g')
+        //     .attr('class', 'tooltip')
+        //     .style('display', 'none');
     
-        vis.tooltip.append('text');
+        // vis.tooltip.append('text');
     }
   
   
@@ -95,6 +100,14 @@ class lineChart {
     
         vis.xValue = d => d.Year;
         
+        // // Group the data per year
+        // vis.groupedData = d3.groups(vis.data, d => d.Year);
+
+        // vis.line = d3.line()
+        //     .x(d => vis.xScale(d.Year))
+        //     .y(d => vis.yScale(d.MaxAQI));
+
+
         vis.yValue = d => d.MaxAQI;
         vis.newYValue = d => d.MedianAQI;
         vis.ninetyPercent = d => d.ninetyPercent;
@@ -115,10 +128,10 @@ class lineChart {
             .y(d => vis.yScale(vis.ninetyPercent(d)));
 
         // Set the scale input domains
-        vis.xScale.domain(d3.extent(vis.data, vis.xValue));
+        // vis.xScale.domain(d3.extent(vis.data, vis.xValue));
         // vis.yScale.domain(d3.extent(vis.data, vis.yValue));
            
-        vis.bisectDate = d3.bisector(vis.xValue).left;
+        // vis.bisectDate = d3.bisector(vis.xValue).left;
 
         vis.renderVis();
    }
@@ -129,6 +142,16 @@ class lineChart {
         // const line = d3.line()
         //     .x(d => d.year)
         //     .y(d => d.MaxAQI);
+
+
+        // // Add line path
+        // vis.linechart.selectAll('.line-path')
+        //     .data(vis.groupedData)
+        //     .join('path').transition()
+        //         .attr('class', 'chart-line')
+        //         .attr('d', vis.line)
+        //         .attr('fill', d => vis.colorScale(d.key));
+
 
         // Add line path
         vis.linechart
@@ -153,33 +176,33 @@ class lineChart {
             .attr("stroke", "blue");
         
 
-        //   vis.axisTitle.style('display', vis.config.displayType == 'absolute' ? 'block' : 'none');
-        vis.trackingArea
-        .on('mouseenter', () => {
-            vis.tooltip.style('display', 'block');
-        })
-        .on('mouseleave', () => {
-            vis.tooltip.style('display', 'none');
-        })
-        .on('mousemove', function(event) {
-            // Get date that corresponds to current mouse x-coordinate
-            const xPos = d3.pointer(event, this)[0]; // First array element is x, second is y
-            const date = vis.xScale.invert(xPos);
+        // //   vis.axisTitle.style('display', vis.config.displayType == 'absolute' ? 'block' : 'none');
+        // vis.trackingArea
+        // .on('mouseenter', () => {
+        //     vis.tooltip.style('display', 'block');
+        // })
+        // .on('mouseleave', () => {
+        //     vis.tooltip.style('display', 'none');
+        // })
+        // .on('mousemove', function(event) {
+        //     // Get date that corresponds to current mouse x-coordinate
+        //     const xPos = d3.pointer(event, this)[0]; // First array element is x, second is y
+        //     const date = vis.xScale.invert(xPos);
 
-            // Find nearest data point
-            const index = vis.bisectDate(vis.data, date, 1);
-            const a = vis.data[index - 1];
-            const b = vis.data[index];
-            const d = b && (date - a.date > b.date - date) ? b : a; 
+        //     // Find nearest data point
+        //     const index = vis.bisectDate(vis.data, date, 1);
+        //     const a = vis.data[index - 1];
+        //     const b = vis.data[index];
+        //     const d = b && (date - a.date > b.date - date) ? b : a; 
 
-            // Update tooltip
-            vis.tooltip.select('circle')
-                .attr('transform', `translate(${vis.xScale(d.Year)},${vis.yScale(d.MaxAQI)})`);
+        //     // Update tooltip
+        //     vis.tooltip.select('circle')
+        //         .attr('transform', `translate(${vis.xScale(d.Year)},${vis.yScale(d.MaxAQI)})`);
         
-            vis.tooltip.select('text')
-                .attr('transform', `translate(${vis.xScale(d.Year)},${(vis.yScale(d.MaxAQI) - 15)})`)
-                .text(Math.round(d.MaxAQI));
-        });
+        //     vis.tooltip.select('text')
+        //         .attr('transform', `translate(${vis.xScale(d.Year)},${(vis.yScale(d.MaxAQI) - 15)})`)
+        //         .text(Math.round(d.MaxAQI));
+        // });
         
         // Update the axes
         vis.xAxisG.call(vis.xAxis);
