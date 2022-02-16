@@ -68,9 +68,25 @@ class lineChart {
             .attr("class", "axis x-axis")
             .attr("transform", `translate(0,${vis.height})`);
 
+        
         // Append y-axis group
         vis.yAxisG = vis.linechart.append("g")
             .attr("class", "axis y-axis");
+
+        // We need to make sure that the tracking area is on top of other chart elements
+        vis.marks = vis.linechart.append('g');
+        vis.trackingArea = vis.linechart.append('rect')
+            .attr('width', vis.width)
+            .attr('height', vis.height)
+            .attr('fill', 'none')
+            .attr('pointer-events', 'all');
+    
+        // Empty tooltip group (hidden by default)
+        vis.tooltip = vis.linechart.append('g')
+            .attr('class', 'tooltip')
+            .style('display', 'none');
+    
+        vis.tooltip.append('text');
     }
   
   
@@ -102,6 +118,8 @@ class lineChart {
         vis.xScale.domain(d3.extent(vis.data, vis.xValue));
         // vis.yScale.domain(d3.extent(vis.data, vis.yValue));
            
+        vis.bisectDate = d3.bisector(vis.xValue).left;
+
         vis.renderVis();
    }
   
@@ -134,6 +152,34 @@ class lineChart {
             .attr("d", vis.NinetyAQI_line)
             .attr("stroke", "blue");
         
+
+        //   vis.axisTitle.style('display', vis.config.displayType == 'absolute' ? 'block' : 'none');
+        vis.trackingArea
+        .on('mouseenter', () => {
+            vis.tooltip.style('display', 'block');
+        })
+        .on('mouseleave', () => {
+            vis.tooltip.style('display', 'none');
+        })
+        .on('mousemove', function(event) {
+            // Get date that corresponds to current mouse x-coordinate
+            const xPos = d3.pointer(event, this)[0]; // First array element is x, second is y
+            const date = vis.xScale.invert(xPos);
+
+            // Find nearest data point
+            const index = vis.bisectDate(vis.data, date, 1);
+            const a = vis.data[index - 1];
+            const b = vis.data[index];
+            const d = b && (date - a.date > b.date - date) ? b : a; 
+
+            // Update tooltip
+            vis.tooltip.select('circle')
+                .attr('transform', `translate(${vis.xScale(d.Year)},${vis.yScale(d.MaxAQI)})`);
+        
+            vis.tooltip.select('text')
+                .attr('transform', `translate(${vis.xScale(d.Year)},${(vis.yScale(d.MaxAQI) - 15)})`)
+                .text(Math.round(d.MaxAQI));
+        });
         
         // Update the axes
         vis.xAxisG.call(vis.xAxis);
