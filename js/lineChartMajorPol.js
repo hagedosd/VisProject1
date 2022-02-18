@@ -16,7 +16,7 @@ class lineChartMajorPol {
      * *******************************************************
      * *******************************************************
      * *******************************************************
-     * Initialize scales/axes and append static chart elements
+     * Initialize scales/axes and append static ChartMajorPol elements
      * *******************************************************
      * *******************************************************
      * *******************************************************
@@ -51,46 +51,41 @@ class lineChartMajorPol {
             .tickSize(-vis.width)
             .tickPadding(10);
     
+            
         // Define size of SVG drawing area
         vis.svg = d3.select(vis.config.parentElement)
             .attr('width', vis.config.containerWidth)
             .attr('height', vis.config.containerHeight);
   
-    //   // Append group element that will contain our actual chart (see margin convention)
-    //   vis.chartContainer = vis.svg.append('g')
-    //       .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
-  
-    //   vis.chart = vis.chartContainer.append('g');
-
-        // Append group element that will contain our actual chart
-        vis.chart = vis.svg
+   
+        // Append group element that will contain our actual ChartMajorPol
+        vis.ChartMajorPol = vis.svg
             .append("g")
             .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
-  
-        // Append empty x-axis group and move it to the bottom of the chart
-        vis.xAxisG = vis.chart.append('g')
+        // Append empty x-axis group and move it to the bottom of the ChartMajorPol
+        vis.xAxisG = vis.ChartMajorPol.append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', `translate(0,${vis.height})`);
         
         // Append y-axis group
-        vis.yAxisG = vis.chart.append('g')
+        vis.yAxisG = vis.ChartMajorPol.append('g')
             .attr('class', 'axis y-axis');
     
-        vis.stack = d3.stack()
-            .keys(keys)
-            (data);
+        // vis.stack = d3.stack()
+        //     .keys(keys)
+        //     (data);
   
-    //   vis.axisTitle = vis.chartContainer.append('text')
+    //   vis.axisTitle = vis.ChartMajorPolContainer.append('text')
     //       .attr('class', 'axis-label')
     //       .attr('y', -18)
     //       .attr('x', -25)
     //       .attr('dy', '0.35em')
     //       .text('Trillion m³');
   
-        // // We need to make sure that the tracking area is on top of other chart elements
-        // vis.marks = vis.chart.append('g');
-        // vis.trackingArea = vis.chart.append('rect')
+        // // We need to make sure that the tracking area is on top of other ChartMajorPol elements
+        // vis.marks = vis.ChartMajorPol.append('g');
+        // vis.trackingArea = vis.ChartMajorPol.append('rect')
         //     .attr('width', vis.width)
         //     .attr('height', vis.height)
         //     .attr('fill', 'none')
@@ -99,7 +94,7 @@ class lineChartMajorPol {
         //     //(event,d) => {
     
         // // Empty tooltip group (hidden by default)
-        // vis.tooltip = vis.chart.append('g')
+        // vis.tooltip = vis.ChartMajorPol.append('g')
         //     .attr('class', 'tooltip')
         //     .style('display', 'none');
     
@@ -118,17 +113,15 @@ class lineChartMajorPol {
     updateVis() {
         let vis = this;
 
-        // vis.days = d => d.days;
+        // vis.dayswAQI = d => d.dayswAQI;
         vis.xValue = d => d.Year;
 
-        vis.yValue0 = d => (100 * d.CO/d.days);
-        vis.yValue1 = d => (100 * d.NO2/d.days);
-        vis.yValue2 = d => (100 * d.Ozone/d.days);
-        vis.yValue3 = d => (100 * d.SO2/d.days);
-        vis.yValue4 = d => (100 * d.PM2/d.days);
-        vis.yValue5 = d => (100 * d.PM10/d.days);
-        
-        
+        vis.yValue0 = d => (100 * d.CO/d.dayswAQI);
+        vis.yValue1 = d => (100 * d.NO2/d.dayswAQI);
+        vis.yValue2 = d => (100 * d.Ozone/d.dayswAQI);
+        vis.yValue3 = d => (100 * d.SO2/d.dayswAQI);
+        vis.yValue4 = d => (100 * d.PM2/d.dayswAQI);
+        vis.yValue5 = d => (100 * d.PM10/d.dayswAQI);
   
 
         vis.CO_line = d3
@@ -160,6 +153,8 @@ class lineChartMajorPol {
             .line()
             .x(d => vis.xScale(vis.xValue(d)))
             .y(d => vis.yScale(vis.yValue5(d)));
+
+
         // Group the data per year
         // vis.groupedData = d3.groups(vis.data, d => d.Year);
 
@@ -184,7 +179,7 @@ class lineChartMajorPol {
      * ***********************************************************************
      * ***********************************************************************
      * This function contains the D3 code for binding data to visual elements
-     * Important: the chart is not interactive yet and renderVis() is intended
+     * Important: the ChartMajorPol is not interactive yet and renderVis() is intended
      * to be called only once; otherwise new paths would be added on top
      * ***********************************************************************
      * ***********************************************************************
@@ -194,49 +189,49 @@ class lineChartMajorPol {
         let vis = this;
     
         // // Add line path
-        // vis.chart.selectAll('.area-path')
+        // vis.ChartMajorPol.selectAll('.area-path')
         //     .data(vis.stack)
         //     .join('path').transition()
         //         .attr('class', 'area-path')
         //         .attr('d', vis.area)
         //         .attr('fill', d => vis.colorScale(d.key));
 
-        vis.chart
+        vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.CO_line)
             .attr("stroke", "black");
 
-        vis.chart
+        vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.NO2_line)
             .attr("stroke", "red");
 
-        vis.chart
+        vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.Ozone_line)
             .attr("stroke", "blue");
 
-        vis.chart
+        vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.SO2_line)
             .attr("stroke", "purple");
 
-        vis.chart
+        vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.PM2_line)
             .attr("stroke", "green");
 
-        vis.chart
+        vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")

@@ -59,7 +59,7 @@ class lineChartAQI {
   
 
         // Append group element that will contain our actual chart (see margin convention)
-        vis.linechart = vis.svg
+        vis.ChartAQI = vis.svg
             .append("g")
             .attr(
                 "transform",
@@ -68,26 +68,26 @@ class lineChartAQI {
 
 
         // Append empty x-axis group and move it to the bottom of the chart
-        vis.xAxisG = vis.linechart
+        vis.xAxisG = vis.ChartAQI
             .append("g")
             .attr("class", "axis x-axis")
             .attr("transform", `translate(0,${vis.height})`);
 
         
         // Append y-axis group
-        vis.yAxisG = vis.linechart.append("g")
+        vis.yAxisG = vis.ChartAQI.append("g")
             .attr("class", "axis y-axis");
 
         // We need to make sure that the tracking area is on top of other chart elements
-        vis.marks = vis.linechart.append('g');
-        vis.trackingArea = vis.linechart.append('rect')
+        vis.marks = vis.ChartAQI.append('g');
+        vis.trackingArea = vis.ChartAQI.append('rect')
             .attr('width', vis.width)
             .attr('height', vis.height)
             .attr('fill', 'none')
             .attr('pointer-events', 'all');
     
         // Empty tooltip group (hidden by default)
-        vis.tooltip = vis.linechart.append('g')
+        vis.tooltip = vis.ChartAQI.append('g')
             .attr('class', 'tooltip')
             .style('display', 'none');
     
@@ -146,7 +146,7 @@ class lineChartAQI {
 
 
         // // Add line path
-        // vis.linechart.selectAll('.line-path')
+        // vis.ChartAQI.selectAll('.line-path')
         //     .data(vis.groupedData)
         //     .join('path').transition()
         //         .attr('class', 'chart-line')
@@ -155,21 +155,21 @@ class lineChartAQI {
 
 
         // Add line path
-        vis.linechart
+        vis.ChartAQI
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.MaxAQI_line)
             .attr("stroke", "black");
 
-        vis.linechart
+        vis.ChartAQI
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.MedianAQI_line)
             .attr("stroke", "red");
 
-        vis.linechart
+        vis.ChartAQI
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
@@ -201,7 +201,7 @@ class lineChartAQI {
                 // vis.tooltip.select('circle')
                 //     .attr('transform', `translate(${vis.xScale(d.Year)},${vis.yScale(d.MaxAQI)})`);
             
-                vis.tooltip.select('#tooltip')
+                vis.tooltip.select('text')
                     .attr('transform', `translate(${vis.xScale(d.Year)},${(vis.yScale(d.MaxAQI) - 15)})`)
                     .style('display', 'block')
                     .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   

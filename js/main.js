@@ -15,14 +15,19 @@
 		d.SO2 = d['Days SO2'];
 		d.PM2 = d['Days PM2.5'];
 		d.PM10 = d['Days PM10'];
-		d.days = d['Days with AQI'];
+		d.dayswAQI = d['Days with AQI'];
+
+		d.Good = d['Good Days'];
+		d.Moderate = d['Moderate Days'];
+		d.SensGrp = d['Unhealthy for Sensitive Groups Days'];
+		d.Unhealthy = d['Unhealthy Days'];
+		d.veryUnhealthy = d['Very Unhealthy Days'];
+		d.Hazardous = d['Hazardous Days'];
   	});
 	
 	// Create an instance (for example in main.js)
 	const lineChartAQI1 = new lineChartAQI({
-		'parentElement': '#AQI',
-		// 'containerHeight': 1100,
-		// 'containerWidth': 1000
+		'parentElement': '#AQI'
 	}, data);
 	lineChartAQI1.updateVis();
 
@@ -31,6 +36,20 @@
 	}, data);
 	lineChartMajorPol1.updateVis();
 
+	const lineChartNoAQI1 = new lineChartNoAQI({
+		'parenElement': 'NoAQI'
+	}, data);
+	// lineChartNoAQI1.updateVis();
+
+	const barChartAQIRating1 = new barChartAQIRating({
+		'parenElement': 'AQIRating'
+	}, data[41]);
+	barChartAQIRating1.updateVis();
+
+	const barChartMainPol1 = new barChartMainPol({
+		'parenElement': 'MainPol2021'
+	}, data[41]);
+	barChartMainPol1.updateVis();
 
   	})
   	.catch(error => {
