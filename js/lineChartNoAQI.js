@@ -2,8 +2,8 @@ class lineChartNoAQI {
     constructor(_config, _data) {
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || 800,
-            containerHeight: _config.containerHeight || 400,
+            containerWidth: _config.containerWidth || 400,
+            containerHeight: _config.containerHeight || 200,
             margin: {top: 25, right: 20, bottom: 30, left: 50},
             tooltipPadding: _config.tooltipPadding || 15
   
@@ -83,7 +83,7 @@ class lineChartNoAQI {
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
-            .attr("d", vis.dayswAQI)
+            .attr("d", vis.dayswoAQI)
             .attr("stroke", "black");
 
         vis.xAxisG.call(vis.xAxis);

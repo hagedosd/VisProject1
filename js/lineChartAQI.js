@@ -2,8 +2,8 @@ class lineChartAQI {
     constructor(_config, _data) {
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || 800,
-            containerHeight: _config.containerHeight || 400,
+            containerWidth: _config.containerWidth || 400,
+            containerHeight: _config.containerHeight || 200,
             margin: {top: 25, right: 20, bottom: 30, left: 50},
             tooltipPadding: _config.tooltipPadding || 15
   
@@ -79,7 +79,7 @@ class lineChartAQI {
             .attr("class", "axis y-axis");
 
         // We need to make sure that the tracking area is on top of other chart elements
-        vis.marks = vis.ChartAQI.append('g');
+        // vis.marks = vis.ChartAQI.append('g');
         vis.trackingArea = vis.ChartAQI.append('rect')
             .attr('width', vis.width)
             .attr('height', vis.height)
@@ -104,6 +104,9 @@ class lineChartAQI {
         vis.newYValue = d => d.MedianAQI;
         vis.ninetyPercent = d => d.ninetyPercent;
 
+        // //tried adding no AQI days to this line chart
+        // vis.yValueAQI = d => d.dayswAQI;
+
 
         // // Group the data per year
         // vis.groupedData = d3.groups(vis.data, d => d.Year);
@@ -127,6 +130,12 @@ class lineChartAQI {
             .line()
             .x(d => vis.xScale(vis.xValue(d)))
             .y(d => vis.yScale(vis.ninetyPercent(d)));
+
+        // //tried adding no AQI days to this line chart
+        // vis.dayswoAQI = d3
+        //     .line()
+        //     .x(d => vis.xScale(vis.xValue(d)))
+        //     .y(d => vis.yScale(vis.yValueAQI(d)));
 
         // Set the scale input domains
         // vis.xScale.domain(d3.extent(vis.data, vis.xValue));
@@ -175,6 +184,14 @@ class lineChartAQI {
             .attr("class", "chart-line")
             .attr("d", vis.NinetyAQI_line)
             .attr("stroke", "blue");
+
+        //temp to try getting days w/o AQI on first line chart
+        // vis.chartAQI
+        //     .append("path")
+        //     .data([vis.data])
+        //     .attr("class", "chart-line")
+        //     .attr("d", vis.dayswoAQI)
+        //     .attr("stroke", "green");
         
 
         //   vis.axisTitle.style('display', vis.config.displayType == 'absolute' ? 'block' : 'none');

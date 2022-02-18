@@ -9,7 +9,8 @@ class barChartAQIRating {
   
       }
   
-    this.data = _data; 
+    this.data = _data;
+    this.data = data[41]; 
 
     this.initVis();
     }
@@ -28,16 +29,21 @@ class barChartAQIRating {
     
         vis.yScale = d3.scaleLinear()
             .domain([0, 366])
-            // .domain(d3.extent(data, d3.max(d[keys])))
             .range([ vis.height, 0 ]);
 
 
         // Initialize axes
         vis.xAxis = d3.axisBottom(vis.xScale)
-            .tickFormat(d3.format("d")); // Remove thousand comma
+            // .tickFormat(d3.format("d")); // Remove thousand comma
+            .ticks(6)
+            .tickSizeOuter(0)
+            .tickPadding(10);
 
         vis.yAxis = d3.axisLeft(vis.yScale)
-            .tickSize(-vis.width)
+            // .tickSize(-vis.width)
+            // .tickPadding(10);
+            .ticks(6)
+            .tickSizeOuter(0)
             .tickPadding(10);
 
         
@@ -47,21 +53,22 @@ class barChartAQIRating {
             .attr('height', vis.config.containerHeight);
 
 
-        // Append group element that will contain our actual chartNoAQI
-        vis.chartNoAQI = vis.svg
+        // Append group element that will contain our actual chartAQIRating
+        vis.chartAQIRating = vis.svg
         .append("g")
         .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
-        // Append empty x-axis group and move it to the bottom of the chartNoAQI
-        vis.xAxisG = vis.chartNoAQI.append('g')
+        // Append empty x-axis group and move it to the bottom of the chartAQIRating
+        vis.xAxisG = vis.chartAQIRating.append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', `translate(0,${vis.height})`)
+            // .attr("transform", "translate(0," + vis.height + ")")
             .selectAll("text")
                 .attr("transform", "translate(-10,0)rotate(-45)")
                 .style("text-anchor", "end");
         
         // Append y-axis group
-        vis.yAxisG = vis.chartNoAQI.append('g')
+        vis.yAxisG = vis.chartAQIRating.append('g')
             .attr('class', 'axis y-axis');
 
     }
@@ -69,8 +76,8 @@ class barChartAQIRating {
     updateVis() {
         let vis = this;
 
-        vis.chartNoAQI.selectAll("mybar")
-            .data(data)
+        vis.chartAQIRating.select("AQIRating")
+            .data([vis.data])
             .enter()
             .append("rect")
                 .attr("x", vis.keys)
@@ -79,16 +86,22 @@ class barChartAQIRating {
                 // no bar at the beginning thus:
                 .attr("height", function(d) { return height - vis.yScale(0); }) // always equal to 0
                 .attr("y", function(d) { return vis.yScale(0); })
+
+        vis.renderVis();
     }
 
     renderVis() {
-        let vis = this;
+        // let vis = this;
+        // console.log("Trying to render bar chart!")
+        // vis.chartAQIRating.selectAll("rect")
+        //     .transition()
+        //     .duration(800)
+        //     .attr("y", data[41])
+        //     .attr("height", function(d) { return height - vis.yScale(d.Value); })
+        //     .delay(function(d,i){console.log(i) ; return(i*100)})
 
-        vis.chartNoAQI.selectAll("rect")
-            .transition()
-            .duration(800)
-            .attr("y", data[41])
-            .attr("height", function(d) { return height - vis.yScale(d.Value); })
-            .delay(function(d,i){console.log(i) ; return(i*100)})
+        // Update the axes
+        vis.xAxisG.call(vis.xAxis);
+        vis.yAxisG.call(vis.yAxis);
     }
 }

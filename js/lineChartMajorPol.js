@@ -2,8 +2,8 @@ class lineChartMajorPol {
     constructor(_config, _data) {
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || 800,
-            containerHeight: _config.containerHeight || 400,
+            containerWidth: _config.containerWidth || 400,
+            containerHeight: _config.containerHeight || 200,
             margin: _config.margin || {top: 25, right: 12, bottom: 30, left: 100},
       }
 

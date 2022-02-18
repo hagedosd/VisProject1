@@ -55,3 +55,11 @@
   	.catch(error => {
     console.error('Error loading the data', error);
   	});
+
+//Issues:
+//No titles or axes labels
+//No legends
+//Bar charts do not show up
+//Error for line chart 3 and bar charts based on .data([vis.data]) line
+//Charts are not interactive
+//Only hamilton county

@@ -16,6 +16,10 @@ body {
   .source a {
     color: #888;
   }
+
+  .bar {
+    fill: steelblue;
+  }
   
   /* Axes */
   .axis line {
@@ -73,8 +77,8 @@ body {
 /* Tooltip */
 .tooltip circle {
   fill: none;
-  stroke: #78bd39;
+  stroke: #000000;
 }
 .tooltip text {
-  fill: #78bd39;
+  fill: #000000;
 }

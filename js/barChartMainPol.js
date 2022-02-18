@@ -45,18 +45,18 @@ class barChartMainPol {
             .attr('height', vis.config.containerHeight);
 
 
-        // Append group element that will contain our actual chartNoAQI
-        vis.chartNoAQI = vis.svg
+        // Append group element that will contain our actual chartMainPol
+        vis.chartMainPol = vis.svg
         .append("g")
         .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
-        // Append empty x-axis group and move it to the bottom of the chartNoAQI
-        vis.xAxisG = vis.chartNoAQI.append('g')
+        // Append empty x-axis group and move it to the bottom of the chartMainPol
+        vis.xAxisG = vis.chartMainPol.append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', `translate(0,${vis.height})`);
         
         // Append y-axis group
-        vis.yAxisG = vis.chartNoAQI.append('g')
+        vis.yAxisG = vis.chartMainPol.append('g')
             .attr('class', 'axis y-axis');
     }
 
