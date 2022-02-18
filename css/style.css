@@ -50,6 +50,11 @@ body {
     /* stroke: #517390; */
     stroke-width: 2px;
   }
+  .chart-bar {
+    fill: #20aa4a;
+    /* stroke: #517390; */
+    stroke-width: 2px;
+  }
 
 /* Tooltip */
 #tooltip {
@@ -81,4 +86,45 @@ body {
 }
 .tooltip text {
   fill: #000000;
+}
+
+
+/* Legend */
+.legend {
+  margin: 20px 0;
+  list-style: none;
+  padding: 0;
+}
+.legend-btn {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  cursor: pointer;
+  transition: all ease-in-out 200ms;
+}
+.legend-btn.inactive {
+  opacity: 0.3;
+}
+.legend-symbol {
+  width: 12px;
+  height: 12px;
+  margin-right: 3px;
+  display: inline-block;
+}
+.legend-btn[category="black"] .legend-symbol {
+  background: #000000;
+}
+.legend-btn[category="red"] .legend-symbol {
+  background: #c52d2d;
+}
+.legend-btn[category="blue"] .legend-symbol {
+  background: #1520c2;
+}
+.legend-btn[category="purple"] .legend-symbol {
+  background: #9512a1;
+}
+.legend-btn[category="green"] .legend-symbol {
+  background: #0c5810;
+}
+.legend-btn[category="orange"] .legend-symbol {
+  background: #be550e;
 }

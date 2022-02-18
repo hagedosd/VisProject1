@@ -2,9 +2,9 @@ class lineChartMajorPol {
     constructor(_config, _data) {
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || 400,
-            containerHeight: _config.containerHeight || 200,
-            margin: _config.margin || {top: 25, right: 12, bottom: 30, left: 100},
+            containerWidth: _config.containerWidth || 800,
+            containerHeight: _config.containerHeight || 400,
+            margin: _config.margin || {top: 50, right: 10, bottom: 30, left: 100},
       }
 
     this.data = _data;
@@ -71,10 +71,33 @@ class lineChartMajorPol {
         // Append y-axis group
         vis.yAxisG = vis.ChartMajorPol.append('g')
             .attr('class', 'axis y-axis');
-    
-        // vis.stack = d3.stack()
-        //     .keys(keys)
-        //     (data);
+
+        // X Axis Label
+        vis.svg.append("text")             
+            .attr("transform",
+                    "translate(" + ((vis.width/2) + 90) + " ," + 
+                                (vis.height + vis.config.margin.top + 30) + ")")
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .text("Year");
+
+        // Y Axis Label
+        vis.svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", vis.config.margin.left - 60)
+            .attr("x",0 - (vis.height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("% of Days as Major Pollutant");
+
+        // Chart title
+        vis.svg.append("text")
+            .attr("x", (vis.width / 2) + 90)             
+            .attr("y", 0 - (vis.config.margin.top / 2) + 50)
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px") 
+            .style("text-decoration", "underline")  
+            .text("Daily Main Pollutants for 1980-2021");
   
     //   vis.axisTitle = vis.ChartMajorPolContainer.append('text')
     //       .attr('class', 'axis-label')
@@ -153,20 +176,6 @@ class lineChartMajorPol {
             .line()
             .x(d => vis.xScale(vis.xValue(d)))
             .y(d => vis.yScale(vis.yValue5(d)));
-
-
-        // Group the data per year
-        // vis.groupedData = d3.groups(vis.data, d => d.Year);
-
-        // vis.area = d3.area()
-        //     .x((d,i) => vis.xScale(d.data.Year))
-        //     .y0(d => vis.yScale(d[0]))
-        //     .y1(d => vis.yScale(d[1]))
-            //.curve(d3.curveStepAfter);
-  
-        // Set the scale input domains
-        // vis.xScale.domain(d3.extent(vis.data, d => d.year));
-        // vis.colorScale.domain([0,1,2]);
     
         // vis.bisectDate = d3.bisector(vis.xValue).left;
         vis.yAxis.tickFormat(d => `${d}%`);
@@ -187,56 +196,48 @@ class lineChartMajorPol {
      */
     renderVis() {
         let vis = this;
-    
-        // // Add line path
-        // vis.ChartMajorPol.selectAll('.area-path')
-        //     .data(vis.stack)
-        //     .join('path').transition()
-        //         .attr('class', 'area-path')
-        //         .attr('d', vis.area)
-        //         .attr('fill', d => vis.colorScale(d.key));
 
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.CO_line)
-            .attr("stroke", "black");
+            .attr("stroke", "#000000");
 
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.NO2_line)
-            .attr("stroke", "red");
+            .attr("stroke", "#1520c2");
 
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.Ozone_line)
-            .attr("stroke", "blue");
+            .attr("stroke", "#c52d2d");
 
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.SO2_line)
-            .attr("stroke", "purple");
+            .attr("stroke", "#9512a1");
 
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.PM2_line)
-            .attr("stroke", "green");
+            .attr("stroke", "#0c5810");
 
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.PM10_line)
-            .attr("stroke", "orange");
+            .attr("stroke", "#be550e");
 
     
         //   vis.axisTitle.style('display', vis.config.displayType == 'absolute' ? 'block' : 'none');

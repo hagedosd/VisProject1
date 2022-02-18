@@ -2,9 +2,9 @@ class lineChartAQI {
     constructor(_config, _data) {
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || 400,
-            containerHeight: _config.containerHeight || 200,
-            margin: {top: 25, right: 20, bottom: 30, left: 50},
+            containerWidth: _config.containerWidth || 800,
+            containerHeight: _config.containerHeight || 400,
+            margin: _config.margin || {top: 50, right: 10, bottom: 30, left: 100},
             tooltipPadding: _config.tooltipPadding || 15
   
       }
@@ -77,6 +77,35 @@ class lineChartAQI {
         // Append y-axis group
         vis.yAxisG = vis.ChartAQI.append("g")
             .attr("class", "axis y-axis");
+
+
+        // Axis labels
+        // text label for the x axis
+        vis.svg.append("text")             
+        .attr("transform",
+                "translate(" + ((vis.width/2) + 90) + " ," + 
+                            (vis.height + vis.config.margin.top + 30) + ")")
+        .style("text-anchor", "middle")
+        .style("fill", "black")
+        .text("Year");
+
+        // text label for the y axis
+        vis.svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", vis.config.margin.left - 50)
+            .attr("x",0 - (vis.height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Air Quality Index");
+
+        // Chart title
+        vis.svg.append("text")
+            .attr("x", (vis.width / 2) + 90)             
+            .attr("y", 0 - (vis.config.margin.top / 2) + 50)
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px") 
+            .style("text-decoration", "underline")  
+            .text("Max, Median, and 90th Percentile AQI Measurements by Year");
 
         // We need to make sure that the tracking area is on top of other chart elements
         // vis.marks = vis.ChartAQI.append('g');
@@ -169,21 +198,23 @@ class lineChartAQI {
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.MaxAQI_line)
-            .attr("stroke", "black");
-
-        vis.ChartAQI
-            .append("path")
-            .data([vis.data])
-            .attr("class", "chart-line")
-            .attr("d", vis.MedianAQI_line)
-            .attr("stroke", "red");
+            .attr("stroke", "#000000");
 
         vis.ChartAQI
             .append("path")
             .data([vis.data])
             .attr("class", "chart-line")
             .attr("d", vis.NinetyAQI_line)
-            .attr("stroke", "blue");
+            .attr("stroke", "#1520c2");
+
+        vis.ChartAQI
+            .append("path")
+            .data([vis.data])
+            .attr("class", "chart-line")
+            .attr("d", vis.MedianAQI_line)
+            .attr("stroke", "#c52d2d");
+
+        
 
         //temp to try getting days w/o AQI on first line chart
         // vis.chartAQI

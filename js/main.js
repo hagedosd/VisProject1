@@ -9,6 +9,7 @@
       	// d.Year = +d.Year; // convert string 'Year' to number
 		// d.MaxAQI = +d.MaxAQI; // convert string 'MaxAQI' to number
 		d.ninetyPercent = d['90th Percentile AQI'];
+
 		d.CO = d['Days CO'];
 		d.NO2 = d['Days NO2'];
 		d.Ozone = d['Days Ozone'];
@@ -16,6 +17,11 @@
 		d.PM2 = d['Days PM2.5'];
 		d.PM10 = d['Days PM10'];
 		d.dayswAQI = d['Days with AQI'];
+		
+		// d.dayswoAQI = (((d.dayswAQI == 365) || (d.dayswAQI == 366)) ? 0 : 365 - d.dayswAQI);
+		// console.log("Days with AQI:", d.dayswAQI);
+		// console.log("Days without AQI:", d.dayswoAQI);
+
 
 		d.Good = d['Good Days'];
 		d.Moderate = d['Moderate Days'];
@@ -37,17 +43,17 @@
 	lineChartMajorPol1.updateVis();
 
 	const lineChartNoAQI1 = new lineChartNoAQI({
-		'parenElement': 'NoAQI'
+		parentElement: '#NoAQI'
 	}, data);
-	// lineChartNoAQI1.updateVis();
+	lineChartNoAQI1.updateVis();
 
 	const barChartAQIRating1 = new barChartAQIRating({
-		'parenElement': 'AQIRating'
+		'parentElement': '#AQIRating'
 	}, data[41]);
 	barChartAQIRating1.updateVis();
 
 	const barChartMainPol1 = new barChartMainPol({
-		'parenElement': 'MainPol2021'
+		'parentElement': '#MainPol2021'
 	}, data[41]);
 	barChartMainPol1.updateVis();
 
