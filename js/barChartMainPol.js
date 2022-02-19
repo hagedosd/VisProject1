@@ -10,6 +10,8 @@ class barChartMainPol {
       }
   
     this.data = _data; 
+    this.data = this.data[this.data.length-1]; 
+    // this.data = data.filter(d => d.Year == 2021);
   
     this.initVis();
     }
@@ -55,30 +57,30 @@ class barChartMainPol {
             .attr('height', vis.config.containerHeight);
 
 
-        // Append group element that will contain our actual chartAQIRating
-        vis.chartAQIRating = vis.svg
+        // Append group element that will contain our actual chartMainPol
+        vis.chartMainPol = vis.svg
         .append("g")
         .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
-        // Append empty x-axis group and move it to the bottom of the chartAQIRating
-        vis.xAxisG = vis.chartAQIRating.append('g')
+        // Append empty x-axis group and move it to the bottom of the chartMainPol
+        vis.xAxisG = vis.chartMainPol.append('g')
             .attr('class', 'axis x-axis')
             .attr('transform', `translate(0,${vis.height})`);
             // .attr("transform", "translate(0," + vis.height + ")")
         
         // Append y-axis group
-        vis.yAxisG = vis.chartAQIRating.append('g')
+        vis.yAxisG = vis.chartMainPol.append('g')
             .attr('class', 'axis y-axis');
 
         //axes titles
-        vis.chartAQIRating.append("text")
+        vis.chartMainPol.append("text")
             .attr("text-anchor", "end")
             .attr("x", vis.width/2 +50)
             .attr("y", vis.height+30)
             .attr("font-size","16px")
             .text("% of Year");
 
-        vis.chartAQIRating.append("text")
+        vis.chartMainPol.append("text")
             .attr("text-anchor", "end")
             .attr("transform", "rotate(-90)")
             .attr("y", -vis.config.margin.left+15)
@@ -99,6 +101,8 @@ class barChartMainPol {
 
     updateVis() {
         let vis = this;
+
+        // vis.svg.selectAll("rect").remove();
         
         // vis.xValue = d => d.Good;
 
@@ -106,7 +110,7 @@ class barChartMainPol {
         // vis.yValue1 = d => d.MedianAQI;
         // vis.yValue2 = d => d.NinteyAQI;
 
-        vis.chartAQIRating.append("rect")
+        vis.chartMainPol.append("rect")
             .data([vis.data])
             .attr('class', 'chart-bar')
             .attr('width', d => (100 * vis.xScale(d.CO) / d.dayswAQI))
@@ -114,7 +118,7 @@ class barChartMainPol {
             .attr('y', vis.yScale("CO"))
             .attr('x',0);
 
-        vis.chartAQIRating.append("rect")
+        vis.chartMainPol.append("rect")
             .data([vis.data])
             .attr('class', 'chart-bar')
             .attr('width', d => (100 * vis.xScale(d.NO2) / d.dayswAQI))
@@ -122,7 +126,7 @@ class barChartMainPol {
             .attr('y', vis.yScale("NO2"))
             .attr('x',0);
 
-        vis.chartAQIRating.append("rect")
+        vis.chartMainPol.append("rect")
             .data([vis.data])
             .attr('class', 'chart-bar')
             .attr('width', d => (100 * vis.xScale(d.Ozone) / d.dayswAQI))
@@ -130,7 +134,7 @@ class barChartMainPol {
             .attr('y', vis.yScale("Ozone"))
             .attr('x',0);
 
-        vis.chartAQIRating.append("rect")
+        vis.chartMainPol.append("rect")
             .data([vis.data])
             .attr('class', 'chart-bar')
             .attr('width', d => (100 * vis.xScale(d.SO2) / d.dayswAQI))
@@ -138,7 +142,7 @@ class barChartMainPol {
             .attr('y', vis.yScale("SO2"))
             .attr('x',0);
 
-            vis.chartAQIRating.append("rect")
+            vis.chartMainPol.append("rect")
             .data([vis.data])
             .attr('class', 'chart-bar')
             .attr('width', d => (100 * vis.xScale(d.PM2) / d.dayswAQI))
@@ -146,7 +150,7 @@ class barChartMainPol {
             .attr('y', vis.yScale("PM2.5"))
             .attr('x',0);
 
-            vis.chartAQIRating.append("rect")
+            vis.chartMainPol.append("rect")
             .data([vis.data])
             .attr('class', 'chart-bar')
             .attr('width', d => (100 * vis.xScale(d.PM10) / d.dayswAQI))

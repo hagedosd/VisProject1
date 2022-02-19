@@ -10,7 +10,7 @@ class lineChartNoAQI {
       }
   
     this.data = _data; 
-      console.log(this.data);
+    // console.log(this.data);
     this.initVis();
     }
 
@@ -105,6 +105,9 @@ class lineChartNoAQI {
 
     renderVis() {
         let vis = this;
+
+        // vis.svg.selectAll("path").remove();
+
         vis.chartNoAQI
             .append("path")
             .data([vis.data])

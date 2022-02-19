@@ -11,43 +11,122 @@
     <h1>Data Visualization Project 1 - Dirty Air</h1>
     <p>Created by Steven Hagedorn using JavaScript and D3</p>
     <a href="https://www.epa.gov/outdoor-air-quality-data/how-do-i-cite-data-and-graphics-obtained-airdata-website">Data Source</a>
-
-    <ul class="legend">
-        <li class="legend-btn" category="black"><span class="legend-symbol"></span> Max AQI</li>
-        <li class="legend-btn" category="blue"><span class="legend-symbol"></span> 90th Percentile AQI</li>
-        <li class="legend-btn" category="red"><span class="legend-symbol"></span> Median AQI</li>
-    </ul>
-    <svg id="AQI">Line chart 1</svg>
+    <br><br>
 
 
-    <br><br><br><br><br>
+    <div class="row">
+        <!-- Left column -->
+        <div class="column-left">
 
-    <ul class="legend">
-        <li class="legend-btn" category="black"><span class="legend-symbol"></span> CO</li>
-        <li class="legend-btn" category="blue"><span class="legend-symbol"></span> NO2</li>
-        <li class="legend-btn" category="red"><span class="legend-symbol"></span> Ozone</li>
-        <li class="legend-btn" category="purple"><span class="legend-symbol"></span> SO2</li>
-        <li class="legend-btn" category="green"><span class="legend-symbol"></span> PM2.5</li>
-        <li class="legend-btn" category="orange"><span class="legend-symbol"></span> PM10</li>
-    </ul>
-    <svg id="MajorPol">Line chart 2</svg>
+            <select id="county-left" onChange="updateSelect(value)">
+                <option value="Hamilton" selected>Hamilton, OH</option>
+                <option value="Los Angeles">Los Angeles, CA</option>
+                <option value="Aroostook">Aroostook, ME</option>
+                <option value="Miami-Dade">Miami-Dade, FL</option>
+                <option value="Travis">Travis, TX</option>
+                <option value="Clark">Clark, NV</option>
+                <option value="Fairbanks North Star">Fairbanks North Star, AK</option>
+                <option value="Honolulu">Honolulu, HI</option>
+                <option value="Loudoun">Loudoun, VA</option>
+                <option value="Minnehaha">Minnehaha, SD</option>
+                <option value="Orleans">Orleans, LA</option>
+                <option value="Wayne">Wayne, MI</option>
+            </select>
+
+            <ul class="legend">
+                <li class="legend-btn" category="black"><span class="legend-symbol"></span> Max AQI</li>
+                <li class="legend-btn" category="blue"><span class="legend-symbol"></span> 90th Percentile AQI</li>
+                <li class="legend-btn" category="red"><span class="legend-symbol"></span> Median AQI</li>
+            </ul>
+            <svg id="AQI">Line chart 1</svg>
 
 
-    <br><br><br><br><br>
+            <br><br><br><br><br>
+
+            <ul class="legend">
+                <li class="legend-btn" category="black"><span class="legend-symbol"></span> CO</li>
+                <li class="legend-btn" category="blue"><span class="legend-symbol"></span> NO2</li>
+                <li class="legend-btn" category="red"><span class="legend-symbol"></span> Ozone</li>
+                <li class="legend-btn" category="purple"><span class="legend-symbol"></span> SO2</li>
+                <li class="legend-btn" category="green"><span class="legend-symbol"></span> PM2.5</li>
+                <li class="legend-btn" category="orange"><span class="legend-symbol"></span> PM10</li>
+            </ul>
+            <svg id="MajorPol">Line chart 2</svg>
 
 
-    <svg id="NoAQI">Line chart 3</svg>
-
-    <br><br><br><br><br>
+            <br><br><br><br><br>
 
 
-    <svg id="AQIRating">Bar chart 1</svg>
+            <svg id="NoAQI">Line chart 3</svg>
 
-    <br><br><br><br><br>
+            <br><br><br><br><br>
 
-    
-    <svg id="MainPol2021">Bar chart 2</svg>
 
+            <svg id="AQIRating">Bar chart 1</svg>
+
+            <br><br><br><br><br>
+
+            
+            <svg id="MainPol">Bar chart 2</svg>
+        </div>
+
+        <!-- Column split for two counties -->
+        <!-- Right column -->
+        <div class="column-right">
+
+            <select id="county-right" onChange="updateRightOnSelect(value)">
+                <option value="Hamilton Ohio">Hamilton, OH</option>
+                <option value="Los Angeles" selected>Los Angeles, CA</option>
+                <option value="Aroostook">Aroostook, ME</option>
+                <option value="Miami-Dade">Miami-Dade, FL</option>
+                <option value="Travis">Travis, TX</option>
+                <option value="Clark">Clark, NV</option>
+                <option value="Fairbanks North Star">Fairbanks North Star, AK</option>
+                <option value="Honolulu">Honolulu, HI</option>
+                <option value="Loudoun">Loudoun, VA</option>
+                <option value="Minnehaha">Minnehaha, SD</option>
+                <option value="Orleans">Orleans, LA</option>
+                <option value="Wayne">Wayne, MI</option>
+            </select>
+
+            <ul class="legend">
+                <li class="legend-btn" category="black"><span class="legend-symbol"></span> Max AQI</li>
+                <li class="legend-btn" category="blue"><span class="legend-symbol"></span> 90th Percentile AQI</li>
+                <li class="legend-btn" category="red"><span class="legend-symbol"></span> Median AQI</li>
+            </ul>
+            <svg id="AQI2">Line chart 1</svg>
+
+
+            <br><br><br><br><br>
+
+            <ul class="legend">
+                <li class="legend-btn" category="black"><span class="legend-symbol"></span> CO</li>
+                <li class="legend-btn" category="blue"><span class="legend-symbol"></span> NO2</li>
+                <li class="legend-btn" category="red"><span class="legend-symbol"></span> Ozone</li>
+                <li class="legend-btn" category="purple"><span class="legend-symbol"></span> SO2</li>
+                <li class="legend-btn" category="green"><span class="legend-symbol"></span> PM2.5</li>
+                <li class="legend-btn" category="orange"><span class="legend-symbol"></span> PM10</li>
+            </ul>
+            <svg id="MajorPol2">Line chart 2</svg>
+
+
+            <br><br><br><br><br>
+
+
+            <svg id="NoAQI2">Line chart 3</svg>
+
+            <br><br><br><br><br>
+
+
+            <svg id="AQIRating2">Bar chart 1</svg>
+
+            <br><br><br><br><br>
+
+            
+            <svg id="MainPol2">Bar chart 2</svg>
+
+        </div>
+    </div>
     <!-- SVG Area Finished-->
 
     <div id="tooltip"></div>
@@ -55,7 +134,7 @@
     <!-- D3 bundle -->
     <script src="js/d3.v6.min.js"></script>
 
-    <!-- Our JS code -->
+    <!-- JS code -->
     <script src="js/main.js"></script>
     <script src="js/lineChartAQI.js"></script>
     <script src="js/lineChartMajorPol.js"></script>

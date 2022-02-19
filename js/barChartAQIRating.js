@@ -10,7 +10,10 @@ class barChartAQIRating {
       }
   
     this.data = _data;
-    // this.data = data[41]; 
+    this.data = this.data[this.data.length-1]; 
+    // console.log("This is bar chart data: ", this.data);
+    // this.data = this.data.filter(d => d.Year == 2021);
+    // console.log("This is year filtered bar chart data: ", this.data);
 
     this.initVis();
     }
@@ -100,7 +103,10 @@ class barChartAQIRating {
 
     updateVis() {
         let vis = this;
+        console.log("this is vis.data: ", vis.data);
         
+        // vis.svg.selectAll("rect").remove();
+
         // vis.xValue = d => d.Good;
 
         // vis.yValue0 = d => d.MaxAQI;

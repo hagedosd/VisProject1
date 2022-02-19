@@ -17,11 +17,10 @@ class lineChartAQI {
     initVis() {
         //setting up the chart- things that won't need to update on user actions
   
-        console.log("Let's draw a chart!!");
-  
         let vis = this; 
+        // d3.select("svg").remove();
     
-        var keys = data.columns.slice(10, 12);
+        var keys = data.columns.slice(10, 13);
 
         // Width and height as the inner dimensions of the chart area- as before
         vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
@@ -177,6 +176,8 @@ class lineChartAQI {
   
     renderVis() { 
         let vis = this;
+
+        // vis.svg.selectAll("path").remove();
 
         // const line = d3.line()
         //     .x(d => d.year)

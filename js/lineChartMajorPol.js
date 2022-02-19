@@ -197,6 +197,9 @@ class lineChartMajorPol {
     renderVis() {
         let vis = this;
 
+        // vis.svg.selectAll("path").remove();
+
+
         vis.ChartMajorPol
             .append("path")
             .data([vis.data])

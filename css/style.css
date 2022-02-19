@@ -128,3 +128,20 @@ body {
 .legend-btn[category="orange"] .legend-symbol {
   background: #be550e;
 }
+
+.column-left {
+  float: left;
+  width: 50%;
+}
+
+.column-right {
+  float: right;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
