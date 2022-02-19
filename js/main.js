@@ -37,7 +37,8 @@ d3.csv('data/data.csv') //ASYNCHRONOUS LOADING
 	// console.log(option.text);
 	
 	let onLoadDataLeft = data.filter(d => d.County == "Hamilton" && d.State == "Ohio");
-	let onLoadDataRight = data.filter(d => d.County == "Los Angeles" && d.State == "California");
+	let onLoadDataRight = data.filter(d => d.County == "Orange" && d.State == "California");
+	let countback = 1;
 
 	// Left instances of Vis 1-5
 	const lineChartAQI1 = new lineChartAQI({
@@ -58,12 +59,12 @@ d3.csv('data/data.csv') //ASYNCHRONOUS LOADING
 	const barChartAQIRating1 = new barChartAQIRating({
 		'parentElement': '#AQIRating'
 	}, onLoadDataLeft);
-	barChartAQIRating1.updateVis();
+	barChartAQIRating1.updateVis(countback);
 
 	const barChartMainPol1 = new barChartMainPol({
 		'parentElement': '#MainPol'
 	}, onLoadDataLeft);
-	barChartMainPol1.updateVis();
+	barChartMainPol1.updateVis(countback);
 
 
 	// Right instances of Vis 1-5
@@ -85,64 +86,65 @@ d3.csv('data/data.csv') //ASYNCHRONOUS LOADING
 	const barChartAQIRating2 = new barChartAQIRating({
 		'parentElement': '#AQIRating2'
 	}, onLoadDataRight);
-	barChartAQIRating2.updateVis();
+	barChartAQIRating2.updateVis(countback);
 
 	const barChartMainPol2 = new barChartMainPol({
 		'parentElement': '#MainPol2'
 	}, onLoadDataRight);
-	barChartMainPol2.updateVis();
+	barChartMainPol2.updateVis(countback);
 
   	})
   	.catch(error => {
     console.error('Error loading the data', error);
   	});
 
+
+function updateLeftOnSelect(value) {
+	let countyAndState = value.split(" ");
+	let county = countyAndState[0];
+	let state = countyAndState[1];
+
+	let onUpdateDataLeft = data.filter(d => d.County == county && d.State == state);
+
+	lineChartAQI1.data = onUpdateDataLeft;
+	lineChartMajorPol1.data = onUpdateDataLeft;
+	lineChartNoAQI1.data = onUpdateDataLeft;
+	barChartAQIRating1.data = onUpdateDataLeft;
+	barChartMainPol1.data = onUpdateDataLeft;
+
+	lineChartAQI1.updateVis();
+	lineChartMajorPol1.updateVis();
+	lineChartNoAQI1.updateVis();
+	barChartAQIRating1.updateVis(countback);
+	barChartMainPol1.updateVis(countback);
+}
 	
 function updateRightOnSelect(value) {
-	console.log("This is the county: ", value);
 	let countyAndState = value.split(" ");
 	let county = countyAndState[0];
 	let state = countyAndState[1];
 
 	let onUpdateDataRight = data.filter(d => d.County == county && d.State == state);
 
-	lineChartAQI2.data() = onUpdateDataRight;
-	lineChartMajorPol2.data() = onUpdateDataRight;
-	lineChartNoAQI2.data() = onUpdateDataRight;
-	barChartAQIRating2.data() = onUpdateDataRight;
-	barChartMainPol2.data() = onUpdateDataRight;
+	lineChartAQI2.data = onUpdateDataRight;
+	lineChartMajorPol2.data = onUpdateDataRight;
+	lineChartNoAQI2.data = onUpdateDataRight;
+	barChartAQIRating2.data = onUpdateDataRight;
+	barChartMainPol2.data = onUpdateDataRight;
 
 	lineChartAQI2.updateVis();
 	lineChartMajorPol2.updateVis();
 	lineChartNoAQI2.updateVis();
-	barChartAQIRating2.updateVis();
-	barChartMainPol2.updateVis();
+	barChartAQIRating2.updateVis(countback);
+	barChartMainPol2.updateVis(countback);
+}
 
-	// Right instances of Vis 1-5
-	// const lineChartAQI2 = new lineChartAQI({
-	// 	'parentElement': '#AQI2'
-	// }, onUpdateDataRight);
-	// lineChartAQI2.updateVis();
-
-	// const lineChartMajorPol2 = new lineChartMajorPol({
-	// 	'parentElement': '#MajorPol2'
-	// }, onUpdateDataRight);
-	// lineChartMajorPol2.updateVis();
-
-	// const lineChartNoAQI2 = new lineChartNoAQI({
-	// 	parentElement: '#NoAQI2'
-	// }, onUpdateDataRight);
-	// lineChartNoAQI2.updateVis();
-
-	// const barChartAQIRating2 = new barChartAQIRating({
-	// 	'parentElement': '#AQIRating2'
-	// }, onUpdateDataRight);
-	// barChartAQIRating2.updateVis();
-
-	// const barChartMainPol2 = new barChartMainPol({
-	// 	'parentElement': '#MainPol2'
-	// }, onUpdateDataRight);
-	// barChartMainPol2.updateVis();
+function updateBarCharts() {
+	var year = document.getElementById("barChartYear").value;
+	console.log("This is the year for bar charts: ", year);
+	countback = 2022 - year;
+	barChartAQIRating2.updateVis(countback);
+	barChartMainPol2.updateVis(countback);
 }
 //Issues:
 //Charts are not interactive

@@ -13,24 +13,28 @@
     <a href="https://www.epa.gov/outdoor-air-quality-data/how-do-i-cite-data-and-graphics-obtained-airdata-website">Data Source</a>
     <br><br>
 
+    <label for="tentacles">Year for Bar Charts (1980-2021):</label>
+    <input type="number" id="barChartYear" name="barChartYear"
+       min="1980" max="2021">
+    <input type="button" onclick="updateBarCharts()" value="calculate">
 
     <div class="row">
         <!-- Left column -->
         <div class="column-left">
 
-            <select id="county-left" onChange="updateSelect(value)">
-                <option value="Hamilton" selected>Hamilton, OH</option>
-                <option value="Los Angeles">Los Angeles, CA</option>
-                <option value="Aroostook">Aroostook, ME</option>
-                <option value="Miami-Dade">Miami-Dade, FL</option>
-                <option value="Travis">Travis, TX</option>
-                <option value="Clark">Clark, NV</option>
-                <option value="Fairbanks North Star">Fairbanks North Star, AK</option>
-                <option value="Honolulu">Honolulu, HI</option>
-                <option value="Loudoun">Loudoun, VA</option>
-                <option value="Minnehaha">Minnehaha, SD</option>
-                <option value="Orleans">Orleans, LA</option>
-                <option value="Wayne">Wayne, MI</option>
+            <select id="county-left" onChange="updateLeftOnSelect(value)">
+                <option value="Hamilton Ohio"selected>Hamilton, OH</option>
+                <option value="Orange California">Orange, CA</option>
+                <option value="Aroostook Maine">Aroostook, ME</option>
+                <option value="Miami-Dade Florida">Miami-Dade, FL</option>
+                <option value="Travis texas">Travis, TX</option>
+                <option value="Clark Nevada">Clark, NV</option>
+                <option value="Fairbanks North Star Alaska">Fairbanks North Star, AK</option>
+                <option value="Honolulu Hawaii">Honolulu, HI</option>
+                <option value="Loudoun Virginia">Loudoun, VA</option>
+                <option value="Jefferson Montana">Jefferson, MT</option>
+                <option value="Orleans Louisiana">Orleans, LA</option>
+                <option value="Wayne Michigan">Wayne, MI</option>
             </select>
 
             <ul class="legend">
@@ -76,17 +80,17 @@
 
             <select id="county-right" onChange="updateRightOnSelect(value)">
                 <option value="Hamilton Ohio">Hamilton, OH</option>
-                <option value="Los Angeles" selected>Los Angeles, CA</option>
-                <option value="Aroostook">Aroostook, ME</option>
-                <option value="Miami-Dade">Miami-Dade, FL</option>
-                <option value="Travis">Travis, TX</option>
-                <option value="Clark">Clark, NV</option>
-                <option value="Fairbanks North Star">Fairbanks North Star, AK</option>
-                <option value="Honolulu">Honolulu, HI</option>
-                <option value="Loudoun">Loudoun, VA</option>
-                <option value="Minnehaha">Minnehaha, SD</option>
-                <option value="Orleans">Orleans, LA</option>
-                <option value="Wayne">Wayne, MI</option>
+                <option value="Orange California"selected>Orange, CA</option>
+                <option value="Aroostook Maine">Aroostook, ME</option>
+                <option value="Miami-Dade Florida">Miami-Dade, FL</option>
+                <option value="Travis texas">Travis, TX</option>
+                <option value="Clark Nevada">Clark, NV</option>
+                <option value="Fairbanks North Star Alaska">Fairbanks North Star, AK</option>
+                <option value="Honolulu Hawaii">Honolulu, HI</option>
+                <option value="Loudoun Virginia">Loudoun, VA</option>
+                <option value="Jefferson Montana">Jefferson, MT</option>
+                <option value="Orleans Louisiana">Orleans, LA</option>
+                <option value="Wayne Michigan">Wayne, MI</option>
             </select>
 
             <ul class="legend">

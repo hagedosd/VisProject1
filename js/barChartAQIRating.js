@@ -10,7 +10,7 @@ class barChartAQIRating {
       }
   
     this.data = _data;
-    this.data = this.data[this.data.length-1]; 
+    // this.data = this.data[this.data.length-1]; 
     // console.log("This is bar chart data: ", this.data);
     // this.data = this.data.filter(d => d.Year == 2021);
     // console.log("This is year filtered bar chart data: ", this.data);
@@ -101,8 +101,10 @@ class barChartAQIRating {
 
     }
 
-    updateVis() {
+    updateVis(countback) {
+        this.data = this.data[this.data.length-countback];
         let vis = this;
+        
         console.log("this is vis.data: ", vis.data);
         
         // vis.svg.selectAll("rect").remove();
