@@ -177,7 +177,7 @@ class lineChartAQI {
     renderVis() { 
         let vis = this;
 
-        // vis.svg.selectAll("path").remove();
+        vis.svg.selectAll("path").remove();
 
         // const line = d3.line()
         //     .x(d => d.year)

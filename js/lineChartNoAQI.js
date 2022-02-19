@@ -106,7 +106,7 @@ class lineChartNoAQI {
     renderVis() {
         let vis = this;
 
-        // vis.svg.selectAll("path").remove();
+        vis.svg.selectAll("path").remove();
 
         vis.chartNoAQI
             .append("path")

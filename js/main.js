@@ -3,11 +3,11 @@ d3.csv('data/data.csv') //ASYNCHRONOUS LOADING
 	//
   	.then(_data => {
 		console.log('Data loading complete. Work with dataset.');
-		data = _data;
+		// data = _data;
 		
 
 		//process the data - this is a forEach function.  You could also do a regular for loop.... 
-		data.forEach(d => { //ARROW function - for each object in the array, pass it as a parameter to this function
+		_data.forEach(d => { //ARROW function - for each object in the array, pass it as a parameter to this function
 			// d.County = +d.County;
 			// d.State = +d.Sate;
 			d.MaxAQI = d['Max AQI'];
@@ -30,65 +30,65 @@ d3.csv('data/data.csv') //ASYNCHRONOUS LOADING
 			d.Unhealthy = d['Unhealthy Days'];
 			d.veryUnhealthy = d['Very Unhealthy Days'];
 			d.Hazardous = d['Hazardous Days'];
-  	});
+  		});
 	// let select = document.getElementById('county-left');
 	// let option = select.options[select.selectedIndex];
 	// console.log(option.value);
 	// console.log(option.text);
-	
-	let onLoadDataLeft = data.filter(d => d.County == "Hamilton" && d.State == "Ohio");
-	let onLoadDataRight = data.filter(d => d.County == "Orange" && d.State == "California");
+	data = _data;
+	let onLoadDataLeft = data.filter(d => d.County === "Hamilton" && d.State === "Ohio");
+	let onLoadDataRight = data.filter(d => d.County === "Orange" && d.State ==="California");
 	let countback = 1;
 
 	// Left instances of Vis 1-5
-	const lineChartAQI1 = new lineChartAQI({
+	lineChartAQI1 = new lineChartAQI({
 		'parentElement': '#AQI'
 	}, onLoadDataLeft);
 	lineChartAQI1.updateVis();
 
-	const lineChartMajorPol1 = new lineChartMajorPol({
+	lineChartMajorPol1 = new lineChartMajorPol({
 		'parentElement': '#MajorPol'
 	}, onLoadDataLeft);
 	lineChartMajorPol1.updateVis();
 
-	const lineChartNoAQI1 = new lineChartNoAQI({
+	lineChartNoAQI1 = new lineChartNoAQI({
 		parentElement: '#NoAQI'
 	}, onLoadDataLeft);
 	lineChartNoAQI1.updateVis();
 
-	const barChartAQIRating1 = new barChartAQIRating({
+	barChartAQIRating1 = new barChartAQIRating({
 		'parentElement': '#AQIRating'
 	}, onLoadDataLeft);
 	barChartAQIRating1.updateVis(countback);
 
-	const barChartMainPol1 = new barChartMainPol({
+	barChartMainPol1 = new barChartMainPol({
 		'parentElement': '#MainPol'
 	}, onLoadDataLeft);
 	barChartMainPol1.updateVis(countback);
 
 
 	// Right instances of Vis 1-5
-	const lineChartAQI2 = new lineChartAQI({
+	lineChartAQI2 = new lineChartAQI({
 		'parentElement': '#AQI2'
 	}, onLoadDataRight);
 	lineChartAQI2.updateVis();
 
-	const lineChartMajorPol2 = new lineChartMajorPol({
+	lineChartMajorPol2 = new lineChartMajorPol({
 		'parentElement': '#MajorPol2'
 	}, onLoadDataRight);
 	lineChartMajorPol2.updateVis();
 
-	const lineChartNoAQI2 = new lineChartNoAQI({
+	lineChartNoAQI2 = new lineChartNoAQI({
 		parentElement: '#NoAQI2'
 	}, onLoadDataRight);
 	lineChartNoAQI2.updateVis();
 
-	const barChartAQIRating2 = new barChartAQIRating({
+	barChartAQIRating2 = new barChartAQIRating({
 		'parentElement': '#AQIRating2'
 	}, onLoadDataRight);
 	barChartAQIRating2.updateVis(countback);
 
-	const barChartMainPol2 = new barChartMainPol({
+	barChartMainPol2 = new barChartMainPol({
 		'parentElement': '#MainPol2'
 	}, onLoadDataRight);
 	barChartMainPol2.updateVis(countback);
@@ -104,7 +104,8 @@ function updateLeftOnSelect(value) {
 	let county = countyAndState[0];
 	let state = countyAndState[1];
 
-	let onUpdateDataLeft = data.filter(d => d.County == county && d.State == state);
+	let onUpdateDataLeft = data.filter(d => d.County === county && d.State === state);
+	console.log(onUpdateDataLeft);
 
 	lineChartAQI1.data = onUpdateDataLeft;
 	lineChartMajorPol1.data = onUpdateDataLeft;
@@ -115,8 +116,8 @@ function updateLeftOnSelect(value) {
 	lineChartAQI1.updateVis();
 	lineChartMajorPol1.updateVis();
 	lineChartNoAQI1.updateVis();
-	barChartAQIRating1.updateVis(countback);
-	barChartMainPol1.updateVis(countback);
+	barChartAQIRating1.updateVis();
+	barChartMainPol1.updateVis();
 }
 	
 function updateRightOnSelect(value) {
@@ -124,7 +125,7 @@ function updateRightOnSelect(value) {
 	let county = countyAndState[0];
 	let state = countyAndState[1];
 
-	let onUpdateDataRight = data.filter(d => d.County == county && d.State == state);
+	let onUpdateDataRight = data.filter(d => d.County === county && d.State === state);
 
 	lineChartAQI2.data = onUpdateDataRight;
 	lineChartMajorPol2.data = onUpdateDataRight;
@@ -135,13 +136,13 @@ function updateRightOnSelect(value) {
 	lineChartAQI2.updateVis();
 	lineChartMajorPol2.updateVis();
 	lineChartNoAQI2.updateVis();
-	barChartAQIRating2.updateVis(countback);
-	barChartMainPol2.updateVis(countback);
+	barChartAQIRating2.updateVis();
+	barChartMainPol2.updateVis();
 }
 
 function updateBarCharts() {
 	var year = document.getElementById("barChartYear").value;
-	console.log("This is the year for bar charts: ", year);
+	// console.log("This is the year for bar charts: ", year);
 	countback = 2022 - year;
 	barChartAQIRating2.updateVis(countback);
 	barChartMainPol2.updateVis(countback);
